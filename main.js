@@ -118,6 +118,17 @@ function addToLocalStorageObject(name, key, value) {
 
 // function to add event listener to the bike and scooter radio buttons
 document.addEventListener("DOMContentLoaded", function () {
+
+    // function to set radio button checked when the page is loaded and the localstorage is not empty and the product_id is set
+    function setRadioChecked() {
+        var localStoragetmp = JSON.parse(localStorage.getItem('state'));
+        localStoragetmp = localStoragetmp.course;
+        if (localStoragetmp.product_id) {
+            var product = document.getElementById('product_' + localStoragetmp.product_id);
+            product.checked = true;
+        }
+    }
+
     function addEventListenerstoProducts() {
         var scooter = document.getElementById('product_2');
         if (scooter) {
@@ -136,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('scooter not found');
         }
 
-        var bike = document.getElementById('Velo');
+        var bike = document.getElementById('product_1');
         if (bike) {
             bike.addEventListener('click', function () {
                 var localStoragetmp = JSON.parse(localStorage.getItem('state'));
@@ -152,5 +163,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('bike not found');
         }
     }
-    window.onload = addEventListenerstoProducts();
+    window.onload = function () {
+        addEventListenerstoProducts();
+        setRadioChecked();
+    }
 });
