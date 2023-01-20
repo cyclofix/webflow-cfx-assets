@@ -212,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStoragetmp.product_id = 2;
                 addToLocalStorageObject('state', 'course', localStoragetmp);
                 initRadioChecked();
+                setFormAction();
             });
         } else {
             console.log(document.getElementById('product_2'));
@@ -226,11 +227,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStoragetmp.product_id = 1;
                 addToLocalStorageObject('state', 'course', localStoragetmp);
                 initRadioChecked();
+                setFormAction();
             });
         } else {
             console.log('bike not found');
         }
-        setFormAction();
     }
     window.onload = function () {
         setLoginLink();
