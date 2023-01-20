@@ -19,7 +19,6 @@ function setFormAction() {
     localStoragetmp = localStoragetmp.course;
     var mainform = document.getElementById('wf-form-Adresse');
     // if localstoragetmp shops value is not empty
-    console.log("localStoragetmp.shops", localStoragetmp.shops);
     if (localStoragetmp.shops && localStoragetmp.shops.length > 0) {
         console.log("shops");
         mainform.action = '/reparation';
@@ -137,22 +136,17 @@ function initGeosearch() {
     var geolocateButton = document.getElementById('geolocate');
     geolocateButton.addEventListener('click', function () {
         // Try HTML5 geolocation.
-        console.log("click on geolocate");
         if (navigator.geolocation) {
-            console.log("geolocation available");
             navigator.geolocation.getCurrentPosition(function (position) {
                 var geolocation = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                console.log("geolocation", geolocation);
                 // pass the position to Autocomplete to get the address and fill the input with ID 'geoaddress' with the address
                 var geocoder = new google.maps.Geocoder;
                 geocoder.geocode({ 'location': geolocation }, function (results, status) {
                     if (status === 'OK') {
                         if (results[0]) {
-                            console.log("OK");
-                            console.log("results", results);
                             gpaInput.value = results[0].formatted_address;
                             var localStoragetmp = localStorage.getItem('state');
                             localStoragetmp = JSON.parse(localStoragetmp);
@@ -187,7 +181,6 @@ function addToLocalStorageObject(name, key, value) {
 
 // function to add event listener to the bike and scooter radio buttons
 document.addEventListener("DOMContentLoaded", function () {
-
     // function to set radio button checked when the page is loaded and the localstorage is not empty and the product_id is set
     function initRadioChecked() {
         var localStoragetmp = JSON.parse(localStorage.getItem('state'));
@@ -218,10 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStoragetmp = localStoragetmp.course;
                 localStoragetmp.product_id = 2;
                 addToLocalStorageObject('state', 'course', localStoragetmp);
-                var mainform = document.getElementById('wf-form-Adresse');
-                mainform.action = '/reparation/symptoms/135';
-                mainform.setAttribute('redirect', '/reparation/symptoms/135');
-                mainform.setAttribute('data-redirect', '/reparation/symptoms/135');
+                initRadioChecked();
             });
         } else {
             console.log(document.getElementById('product_2'));
@@ -235,14 +225,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStoragetmp = localStoragetmp.course;
                 localStoragetmp.product_id = 1;
                 addToLocalStorageObject('state', 'course', localStoragetmp);
-                var mainform = document.getElementById('wf-form-Adresse');
-                mainform.action = '/reparation/symptoms/118';
-                mainform.setAttribute('redirect', '/reparation/symptoms/118');
-                mainform.setAttribute('data-redirect', '/reparation/symptoms/118');
+                initRadioChecked();
             });
         } else {
             console.log('bike not found');
         }
+        setFormAction();
     }
     window.onload = function () {
         setLoginLink();
