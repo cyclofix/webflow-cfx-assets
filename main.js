@@ -136,11 +136,14 @@ function initGeosearch() {
             }
         }
     
+        var errorDiv = document.getElementById('address-error-message');
         if (streetName && streetNumber) {
             // Full address with street name and number
+            errorDiv.style.display = 'none';
             console.log("Complete address: " + streetName + " " + streetNumber);
         } else {
             // Incomplete address, prompt user for more information
+            errorDiv.style.display = 'block';
             console.log("Please enter a full address including street number");
         }
 
