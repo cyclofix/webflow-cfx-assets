@@ -78,7 +78,7 @@ function callgetAvailability(place_id) {
 
 function initGeosearch() {
     var gpaInput = document.getElementById("geoaddress");
-    var autocomplete = new google.maps.places.Autocomplete(gpaInput, { types: ['geocode'], componentRestrictions: { country: 'fr' } });
+    var autocomplete = new google.maps.places.Autocomplete(gpaInput, { types: ['address'], componentRestrictions: { country: 'fr' } });
 
     google.maps.event.addDomListener(gpaInput, 'keydown', function (event) {
         if (event.keyCode === 13) {
