@@ -124,6 +124,26 @@ function initGeosearch() {
     autocomplete.addListener('place_changed', async function () {
         var place = autocomplete.getPlace();
         var localStoragetmp = JSON.parse(localStorage.getItem('state'));
+        var streetNumber = null;
+        var streetName = null;
+
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (addressType === 'street_number') {
+                streetNumber = place.address_components[i].long_name;
+            } else if (addressType === 'route') {
+                streetName = place.address_components[i].long_name;
+            }
+        }
+    
+        if (streetName && streetNumber) {
+            // Full address with street name and number
+            console.log("Complete address: " + streetName + " " + streetNumber);
+        } else {
+            // Incomplete address, prompt user for more information
+            console.log("Please enter a full address including street number");
+        }
+
         localStoragetmp = localStoragetmp.course;
         localStoragetmp.position = place.formatted_address;
         localStoragetmp.positionInput = place.formatted_address;
